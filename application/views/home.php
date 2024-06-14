@@ -40,22 +40,22 @@
 
     ?>
 
-    <?php if (isset($allUser) && !empty($allUser)): ?>
+    <!-- <?php // if (isset($allUser) && !empty($allUser)): ?>
         <table>
-            <?php foreach($allUser->result() as $user): ?>
+            <?php // foreach($allUser->result() as $user): ?>
                 <tr>
-                    <td><?php echo $user->id; ?></td>
-                    <td><?php echo $user->fullname; ?></td>
-                    <td><?php echo $user->age; ?></td>
-                    <td><?php echo $user->email; ?></td>
-                    <td><?php echo $user->password; ?></td>
-                    <!-- <td><?php echo $user->date; ?></td> -->
-                </tr>
-            <?php endforeach; ?>
-        </table>
-    <?php else: ?>
-        <p>No users found.</p>
-    <?php endif; ?>
+                    <td>//<?php echo $user->id; ?></td>
+                    <td>//<?php echo $user->fullname; ?></td>
+                    <td>//<?php echo $user->age; ?></td>
+                    <td>//<?php echo $user->email; ?></td>
+                    <td>//<?php echo $user->password; ?></td>
+                    <td>//<?php echo $user->date; ?></td> -->
+                <!-- </tr> -->
+            <!-- <?php // endforeach; ?>
+        </table> -->
+    <?php //else: ?>
+        <!-- <p>No users found.</p> -->
+    <?php //endif; ?> 
 
 
 </body>

@@ -37,7 +37,7 @@
                 <a href="<?= site_url(uri: 'crud/editStudent/'.$student->id)?>">Edit</a>
             </td>
             <td>
-            <a href="<?= site_url(uri: 'crud/deleteStudent')?>">Delete</a>
+            <a href="<?= site_url(uri: 'crud/deleteStudent/'.$student->id)?>">Delete</a>
             </td>
         </tr>
         <?php endforeach; ?>
@@ -45,5 +45,6 @@
         Student's doesn't exist.
         <?php endif;?>
        </table>
+    <a href="<?= site_url(uri:'crud') ?>">Insert Student</a>
 </body>
 </html>

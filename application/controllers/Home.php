@@ -184,8 +184,37 @@ class Home extends CI_Controller
         // $data= $this->modHome->updateData($myArray,14);
         // $data= $this->modHome->deleteData(14);
         // $data= $this->modHome->myReturnId($arrayData);
-        $data= $this->modHome->myLastQuery();
-        var_dump($data);
+        // $data= $this->modHome->myLastQuery();
+        // var_dump($data);
+        $this->load->view('header/header'); //<head>
+        $this->load->view('header/css');
+        $this->load->view('header/customCSS/css');
+        $this->load->view('header/navigation'); // </head>
+        $this->load->view('content/home');
+        $this->load->view('footer/footer');
+        $this->load->view('footer/js');
+        $this->load->view('footer/customJS/js'); 
+        $this->load->view('footer/endhtml');
+    }
+
+    public function about(){
+        $this->load->view('header/header');
+        $this->load->view('header/css');
+        $this->load->view('header/navigation');
+        $this->load->view('content/about');
+        $this->load->view('footer/footer');
+        $this->load->view('footer/js');
+        $this->load->view('footer/endhtml');
+    }
+
+    public function contactus(){
+        $this->load->view('header/header');
+        $this->load->view('header/css');
+        $this->load->view('header/navigation');
+        $this->load->view('content/contactUs');
+        $this->load->view('footer/footer');
+        $this->load->view('footer/js');
+        $this->load->view('footer/endhtml');
     }
 
 
