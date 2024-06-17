@@ -186,15 +186,20 @@ class Home extends CI_Controller
         // $data= $this->modHome->myReturnId($arrayData);
         // $data= $this->modHome->myLastQuery();
         // var_dump($data);
-        $this->load->view('header/header'); //<head>
-        $this->load->view('header/css');
-        $this->load->view('header/customCSS/css');
-        $this->load->view('header/navigation'); // </head>
-        $this->load->view('content/home');
-        $this->load->view('footer/footer');
-        $this->load->view('footer/js');
-        $this->load->view('footer/customJS/js'); 
-        $this->load->view('footer/endhtml');
+        
+        if($this->session->userdata('uId')){
+            $this->load->view('header/header');
+            $this->load->view('header/css');
+            $this->load->view('header/navigation');
+            $this->load->view('content/home');
+            $this->load->view('footer/footer');
+            $this->load->view('footer/js');
+            $this->load->view('footer/endhtml');
+        }
+        else{
+            $this->session->set_flashdata('message', 'Please Login First.');
+            redirect('signin');
+        }
     }
 
     public function about(){
