@@ -1,4 +1,4 @@
-<div class="container mt-4">
+<div class="container">
     <div class="row">
         <div class="form-group">
             <?php echo validation_errors(); ?>
