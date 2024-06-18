@@ -3,13 +3,18 @@
 class SignIn extends CI_Controller {
 
     public function index() {
-        $this->load->view('header/header');
-        $this->load->view('header/css');
-        $this->load->view('header/navigation');
-        $this->load->view('auth/signin');
-        $this->load->view('footer/footer');
-        $this->load->view('footer/js');
-        $this->load->view('footer/endhtml');
+        if($this->session->userData('uId')){
+            redirect(uri: 'home');
+        }
+        else{
+            $this->load->view('header/header');
+            $this->load->view('header/css');
+            $this->load->view('header/navigation');
+            $this->load->view('auth/signin');
+            $this->load->view('footer/footer');
+            $this->load->view('footer/js');
+            $this->load->view('footer/endhtml');
+        }
     }
 
     public function checkUser() {
@@ -46,5 +51,12 @@ class SignIn extends CI_Controller {
                 redirect('signin');
             }
         }
+    }
+
+    public function logout() {
+        $this->session->unset_userdata(array('uId', 'email', 'fullname'));
+        $this->session->sess_destroy();
+        $this->session->set_flashdata('message', 'Logged out Successfully.');
+        redirect('signin');
     }
 }

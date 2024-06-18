@@ -39,7 +39,7 @@
     </nav> -->
 
     <!-- header section start -->
-<div class="header_section">
+<div class="header_section mb-6">
    <div class="container-fluid header_main">
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
          <a class="logo" href="<?php echo base_url('assets/images/logo.png'); ?>"><img src="<?php echo base_url('assets/images/logo.png'); ?>"></a>
@@ -55,14 +55,14 @@
                   <a class="nav-link" href="<?php echo base_url('home/about'); ?>">About</a>
                </li>
                <li class="nav-item">
-                  <a class="nav-link" href="<?php echo base_url('home/contact'); ?>">Contact Us</a>
+                  <a class="nav-link" href="<?php echo base_url('blog'); ?>">All Blogs</a>
                </li>
                <?php if($this->session->userdata('uId')): ?>
                   <li class="nav-item">
-                     <a class="nav-link" href="<?php echo base_url('home/blog'); ?>">Create Blog</a>
+                     <a class="nav-link" href="<?php echo base_url('blog/newBlog'); ?>">Create Blog</a>
                   </li>
                   <li class="nav-item">
-                     <a class="nav-link" href="<?php echo base_url('logout'); ?>">Logout</a>
+                     <a class="nav-link" href="<?php echo base_url('signin/logout'); ?>">Logout</a>
                   </li>
                <?php else: ?>
                   <li class="nav-item">
