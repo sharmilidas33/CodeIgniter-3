@@ -187,7 +187,6 @@ class Home extends CI_Controller
         // $data= $this->modHome->myLastQuery();
         // var_dump($data);
         
-        if($this->session->userdata('uId')){
             $this->load->view('header/header');
             $this->load->view('header/css');
             $this->load->view('header/navigation');
@@ -195,11 +194,6 @@ class Home extends CI_Controller
             $this->load->view('footer/footer');
             $this->load->view('footer/js');
             $this->load->view('footer/endhtml');
-        }
-        else{
-            $this->session->set_flashdata('message', 'Please Login First.');
-            redirect('signin');
-        }
     }
 
     public function about(){
@@ -212,15 +206,15 @@ class Home extends CI_Controller
         $this->load->view('footer/endhtml');
     }
 
-    public function contactus(){
-        $this->load->view('header/header');
-        $this->load->view('header/css');
-        $this->load->view('header/navigation');
-        $this->load->view('content/contactUs');
-        $this->load->view('footer/footer');
-        $this->load->view('footer/js');
-        $this->load->view('footer/endhtml');
-    }
+    // public function contactus(){
+    //     $this->load->view('header/header');
+    //     $this->load->view('header/css');
+    //     $this->load->view('header/navigation');
+    //     $this->load->view('content/contactUs');
+    //     $this->load->view('footer/footer');
+    //     $this->load->view('footer/js');
+    //     $this->load->view('footer/endhtml');
+    // }
 
 
     public function myfile(){

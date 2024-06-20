@@ -19,7 +19,7 @@ class modBlog extends CI_Model {
             ->where('blog.blogStatus', 1)
             ->join('user', 'user.id = blog.userId')
             ->get()
-            ->result(); // Assuming you want to return an array of objects
+            ->result();
     }
     
     public function checkBlogById($bId) {

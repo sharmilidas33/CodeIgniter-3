@@ -3,18 +3,11 @@
 class SignIn extends CI_Controller {
 
     public function index() {
-        if($this->session->userData('uId')){
-            redirect(uri: 'home');
-        }
-        else{
-            $this->load->view('header/header');
-            $this->load->view('header/css');
-            $this->load->view('header/navigation');
-            $this->load->view('auth/signin');
-            $this->load->view('footer/footer');
-            $this->load->view('footer/js');
+            $this->load->view('admin/header/header');
+            $this->load->view('admin/header/css');
+            $this->load->view('admin/auth/signin');
+            $this->load->view('admin/footerAdmin/js');
             $this->load->view('footer/endhtml');
-        }
     }
 
     public function checkUser() {
@@ -41,7 +34,7 @@ class SignIn extends CI_Controller {
                 $this->session->set_userdata($sessValue);
                 
                 if ($this->session->userdata('uId')) {
-                    redirect('home');
+                    redirect('BlogAdmin/index');
                 } else {
                     $this->session->set_flashdata('message', 'Invalid email or password.');
                     redirect('signin');

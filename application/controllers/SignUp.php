@@ -3,12 +3,10 @@
 class SignUp extends CI_Controller {
 
     public function index() {
-        $this->load->view('header/header');
-        $this->load->view('header/css');
-        $this->load->view('header/navigation');
-        $this->load->view('auth/signup');
-        $this->load->view('footer/footer');
-        $this->load->view('footer/js');
+        $this->load->view('admin/header/header');
+        $this->load->view('admin/header/css');
+        $this->load->view('admin/auth/signup');
+        $this->load->view('admin/footerAdmin/js');
         $this->load->view('footer/endhtml');
     }
 
@@ -40,7 +38,7 @@ class SignUp extends CI_Controller {
                         redirect('signup');
                     }
                     else{
-                        $this->session->set_flashdata('message', 'Form submitted successfully but email not sent');
+                        $this->session->set_flashdata('message', 'Form submitted successfully');
                         redirect('signup');
                     }
                 } else {

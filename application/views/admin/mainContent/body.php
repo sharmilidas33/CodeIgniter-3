@@ -25,12 +25,20 @@
         </div>
     </div>
     
+    <!-- Validation Errors and Flash Messages -->
+    <?php echo validation_errors('<div class="alert alert-danger">', '</div>'); ?>
+    <?php if ($this->session->flashdata('message')): ?>
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <?= $this->session->flashdata('message'); ?>
+        </div>
+    <?php endif; ?>
+
     <!-- Blog Content Table -->
     <div class="row">
         <div class="col-12">
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Blog Content</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Latest Blogs</h6>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -49,7 +57,7 @@
                                         <td>
                                             <?php echo $blog->truncated_desc; ?>
                                             <!-- Read more link to open modal -->
-                                            <a href="#" class="btn btn-sm btn-info read-more" data-toggle="modal" data-target="#blogModal_<?php echo $blog->blogId; ?>">Read more</a>
+                                            <a href="#" class="btn btn-sm read-more text-info font-weight-bold" data-toggle="modal" data-target="#blogModal_<?php echo $blog->blogId; ?>">Read more</a>
                                         </td>
                                         <td><?php echo $blog->userName; ?></td>
                                     </tr>
@@ -78,6 +86,13 @@
                                 <?php endforeach; ?>
                             </tbody>
                         </table>
+
+                        <!-- See More Blogs Button -->
+                        <div class="d-flex justify-content-end mt-3">
+                            <a href="<?php echo base_url('BlogAdmin/viewBlogs/') ?>" class="btn btn-primary">See More Blogs</a>
+                        </div>
+
+
                     </div>
                 </div>
             </div>

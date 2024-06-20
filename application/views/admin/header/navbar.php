@@ -14,7 +14,7 @@
 
         <!-- Topbar Search -->
         <div class="d-flex justify-content-center w-100">
-            <h1 class="h3 mb-0 text-gray-800 font-weight-bold">Welcome to Admin Panel</h1>
+            <h1 class="h3 mb-0 text-gray-800 font-weight-bold">Admin Panel</h1>
         </div>
 
             
