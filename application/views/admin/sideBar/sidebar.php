@@ -51,7 +51,7 @@
 
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
-            <a class="nav-link" href="<?php echo base_url('index.php/BlogAdmin/viewBlogs'); ?>">
+            <a class="nav-link" href="<?php echo base_url('BlogAdmin/appearance'); ?>">
                 <i class="fas fa-fw fa-eye"></i>
                 <span>Appearance</span>
             </a>

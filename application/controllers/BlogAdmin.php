@@ -20,6 +20,8 @@ class BlogAdmin extends CI_Controller{
         $latest_blogs = $this->modAdmin->fetchLatestBlogs(4);
         $data['latest_blogs'] = $latest_blogs;
 
+        $data['user_name'] = $this->session->userdata('user_name'); 
+
         foreach ($latest_blogs as $blog) {
             $blog->truncated_desc = $this->truncateWords($blog->blogBody, 30);
             
@@ -28,7 +30,7 @@ class BlogAdmin extends CI_Controller{
         $this->load->view('admin/header/header');
         $this->load->view('admin/header/css');
         $this->load->view('admin/sideBar/sidebar');
-        $this->load->view('admin/header/navbar');
+        $this->load->view('admin/header/navbar',$data);
         $this->load->view('admin/mainContent/body',$data);
         $this->load->view('admin/footerAdmin/footer');
         $this->load->view('admin/footerAdmin/js');
@@ -165,6 +167,119 @@ class BlogAdmin extends CI_Controller{
         // Redirect back to the blogs listing
         redirect('BlogAdmin/viewBlogs');
     }
+    
+    public function appearance(){
+
+        $this->load->view('admin/header/header');
+        $this->load->view('admin/header/css');
+        $this->load->view('admin/sideBar/sidebar');
+        $this->load->view('admin/header/navbar');
+        $this->load->view('admin/mainContent/appearance');
+        $this->load->view('admin/footerAdmin/footer');
+        $this->load->view('admin/footerAdmin/js');
+        $this->load->view('footer/endhtml');
+    }
+
+    public function addContent() {
+        $this->load->library('form_validation');
+        $this->load->library('upload');
+    
+        $this->form_validation->set_rules('logo_name', 'Logo Name', 'trim');
+        $this->form_validation->set_rules('nav_items', 'Navigation Items');
+        $this->form_validation->set_rules('banner_line', 'Banner Line', 'trim');
+        $this->form_validation->set_rules('banner_button_name', 'Banner Button Name', 'trim');
+        $this->form_validation->set_rules('about_us', 'About Us', 'trim');
+        $this->form_validation->set_rules('facebook_link', 'Facebook Link', 'trim|valid_url');
+        $this->form_validation->set_rules('linkedin_link', 'LinkedIn Link', 'trim|valid_url');
+        $this->form_validation->set_rules('instagram_link', 'Instagram Link', 'trim|valid_url');
+        $this->form_validation->set_rules('twitter_link', 'Twitter Link', 'trim|valid_url');
+        $this->form_validation->set_rules('footer_email', 'Footer Email', 'trim|valid_email');
+        $this->form_validation->set_rules('footer_number', 'Footer Number', 'trim');
+    
+        if ($this->form_validation->run() == FALSE) {
+            $this->load->view('admin/header/header');
+            $this->load->view('admin/header/css');
+            $this->load->view('admin/sideBar/sidebar');
+            $this->load->view('admin/header/navbar');
+            $this->load->view('admin/mainContent/addBlog'); 
+            $this->load->view('admin/footerAdmin/footer');
+            $this->load->view('admin/footerAdmin/js');
+            $this->load->view('footer/endhtml');
+        } else {
+            // Validation passed, proceed to handle form data
+    
+            // Collect form data
+            $logoName = $this->input->post('logo_name');
+            $navItems = $this->input->post('nav_items'); 
+            $bannerLine = $this->input->post('banner_line');
+            $bannerButtonName = $this->input->post('banner_button_name');
+            $aboutUs = $this->input->post('about_us');
+            $facebookLink = $this->input->post('facebook_link');
+            $linkedinLink = $this->input->post('linkedin_link');
+            $instagramLink = $this->input->post('instagram_link');
+            $twitterLink = $this->input->post('twitter_link');
+            $footerEmail = $this->input->post('footer_email');
+            $footerNumber = $this->input->post('footer_number');
+    
+            // File upload configurations
+            $config['upload_path'] = './uploads/'; // Specify your upload directory
+            $config['allowed_types'] = 'gif|jpg|png'; // Allowed file types
+            $config['max_size'] = 2048; // Maximum file size in KB
+            $config['encrypt_name'] = TRUE; // Encrypt the file name
+            $this->upload->initialize($config);
+    
+            // Upload Banner Image
+            if ($this->upload->do_upload('banner_image')) {
+                $bannerImage = $this->upload->data('file_name');
+            } else {
+                $bannerImage = ''; 
+            }
+    
+            // Upload About Image
+            if ($this->upload->do_upload('about_image_1')) {
+                $aboutImage = $this->upload->data('file_name');
+            } else {
+                $aboutImage = ''; 
+            }
+    
+            // Prepare data for insertion
+            $content = [
+                'logo_name' => $logoName,
+                'nav_items' => json_encode($navItems), 
+                'banner_line' => $bannerLine,
+                'banner_image' => $bannerImage,
+                'banner_button_name' => $bannerButtonName,
+                'about_us' => $aboutUs,
+                'about_image' => $aboutImage,
+                'facebook_link' => $facebookLink,
+                'linkedin_link' => $linkedinLink,
+                'instagram_link' => $instagramLink,
+                'twitter_link' => $twitterLink,
+                'footer_email' => $footerEmail,
+                'footer_number' => $footerNumber
+            ];
+    
+            // Display the collected data (for debugging purposes)
+            // echo "<pre>";
+            // print_r($content);
+            // echo "</pre>";
+    
+            // Insert into database using model method
+
+            $inserted = $this->modAdmin->insertAppearanceData($content);
+    
+            if ($inserted) {
+                $this->session->set_flashdata('message', 'Data Submitted Successfully');
+                redirect('BlogAdmin/appearance/success');
+                // echo "Data inserted successfully.";
+            } else {
+                $this->session->set_flashdata('message', 'Error in data submission.');
+                echo "Failed to insert data.";
+            }
+        }
+    }
+    
+    
     
 
     public function totalBlogs(){

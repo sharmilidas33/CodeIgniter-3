@@ -60,4 +60,20 @@ class ModAdmin extends CI_Model{
         return $this->db->delete('blog');
     }
 
+    public function insertAppearanceData($content) {
+        // Prepare data for insertion
+        $data = [
+            'userId' => $this->session->userdata('uId'), // Assuming userId is retrieved from session
+            'created_at' => date('Y-m-d H:i:s'), // Current timestamp
+            'content' => json_encode($content) // Encode $content array to JSON format
+        ];
+    
+        // Insert data into the appearance table
+        $this->db->insert('appearance', $data);
+    
+        // Check for insertion success
+        return $this->db->insert_id(); // Return the ID of the inserted row if needed
+    }
+    
+
 }
