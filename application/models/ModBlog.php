@@ -20,19 +20,19 @@ class modBlog extends CI_Model {
             ->join('user', 'user.id = blog.userId')
             ->get()
             ->result();
-    }
-    
-    public function checkBlogById($bId) {
-        $query = $this->db
-            ->select('blog.*, user.fullname as userName')
+    }    
+
+
+    public function getBlogById($blogId) {
+        return $this->db
+            ->select('blog.*, user.fullname as userName') // Selecting user.fullname as userName
             ->from('blog')
-            ->where('blog.blogStatus', 1)
-            ->where('blog.blogId', $bId)
-            ->join('user', 'user.id = blog.userId')
-            ->get();
-    
-        return $query->row(); // Return a single row object
+            ->where('blog.blogId', $blogId)
+            ->join('user', 'user.id = blog.userId') // Assuming user.id relates to blog.userId
+            ->get()
+            ->row(); // Assuming you expect only one row
     }
+
     
 
 

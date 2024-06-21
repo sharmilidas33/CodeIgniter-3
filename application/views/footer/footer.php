@@ -1,7 +1,7 @@
 <!-- footer section start -->
 <div class="footer_section layout_padding">
    <div class="container">
-      <div class="footer_logo"><a href="index.html"><img src="assets/images/footer-logo.png"></a></div>
+   <div class="footer_logo text-lg text-white fw-bold custom-large-text "><?= $content['logo_name'] ?></div>
       <div class="footer_menu">
          <ul>
             <li><a href="index.html">Home</a></li>
@@ -12,12 +12,13 @@
          </ul>
       </div>
       <div class="contact_menu">
-         <ul>
-            <li><a href="#"><img src="assets/images/call-icon.png"></a></li>
-            <li><a href="#">Call : +01 1234567890</a></li>
-            <li><a href="#"><img src="assets/images/mail-icon.png"></a></li>
-            <li><a href="features.html">demo@gmail.com</a></li>
-         </ul>
+      <ul>
+         <!-- <li><a href="#"><img src="assets/images/call-icon.png"></a></li> -->
+         <li><a href="#">Email : <?= $content['footer_email'] ?></a></li>
+         <!-- <li><a href="#"><img src="assets/images/mail-icon.png"></a></li> -->
+         <li><a href="#">Call : <?= $content['footer_number'] ?></a></li>
+      </ul>
+
       </div>
    </div>
 </div>
@@ -29,3 +30,9 @@
    </div>
 </div>
 <!-- copyright section end -->
+
+<style>
+        .custom-large-text {
+            font-size: 4rem; /* Adjust the size as needed */
+        }
+    </style>

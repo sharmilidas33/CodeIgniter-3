@@ -21,14 +21,18 @@
         <div class="col-lg-12">
             <div class="card shadow mb-4">
                 <div class="card-body">
-                    <form action="<?php echo base_url('BlogAdmin/addNewBlog'); ?>" method="POST">
+                    <form action="<?php echo base_url('BlogAdmin/addNewBlog'); ?>" method="POST" enctype="multipart/form-data">
                         <div class="mb-3">
                             <label for="blogTitle" class="form-label">Blog Title</label>
-                            <input type="text" class="form-control" id="blogTitle" name="blogTitle" placeholder="Enter blog title"  >
+                            <input type="text" class="form-control" id="blogTitle" name="blogTitle" placeholder="Enter blog title">
                         </div>
                         <div class="mb-3">
                             <label for="blogBody" class="form-label">Blog Description/Body</label>
-                            <textarea class="form-control" id="blogBody" name="blogBody" rows="8" placeholder="Enter blog description/body"  ></textarea>
+                            <textarea class="form-control" id="blogBody" name="blogBody" rows="8" placeholder="Enter blog description/body"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="blogImage" class="form-label">Blog Image</label>
+                            <input type="file" class="form-control" id="blogImage" name="blogImage">
                         </div>
                         <div class="text-end">
                             <button type="submit" class="btn btn-primary">Submit</button>

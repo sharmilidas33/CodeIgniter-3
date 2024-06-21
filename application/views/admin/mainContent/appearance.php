@@ -8,12 +8,12 @@
         </div>
     <?php endif; ?>
 
-    
+
 <form method="post" action="<?php echo site_url('BlogAdmin/addContent'); ?>" enctype="multipart/form-data">
         <!-- Logo and Navigation Items Section -->
         <div class="card mb-4">
-            <div class="card-header">
-                <h5 class="card-title">Header</h5>
+            <div class="card-header bg-info">
+                <h5 class="card-title text-white font-weight-bold">Header</h5>
             </div>
             <div class="card-body">
                 <div class="mb-3">
@@ -25,22 +25,22 @@
                     <div class="input-group mb-2">
                         <input type="text" class="form-control" name="nav_items[0][name]" placeholder="Name"   >
                         <input type="url" class="form-control" name="nav_items[0][link]" placeholder="Link"   >
-                        <button type="button" class="btn btn-danger remove-nav-item">Remove</button>
+                           
                     </div>
                     <div class="input-group mb-2">
                         <input type="text" class="form-control" name="nav_items[1][name]" placeholder="Name"   >
                         <input type="url" class="form-control" name="nav_items[1][link]" placeholder="Link"   >
-                        <button type="button" class="btn btn-danger remove-nav-item">Remove</button>
+                           
                     </div>
                     <div class="input-group mb-2">
                         <input type="text" class="form-control" name="nav_items[2][name]" placeholder="Name"   >
                         <input type="url" class="form-control" name="nav_items[2][link]" placeholder="Link"   >
-                        <button type="button" class="btn btn-danger remove-nav-item">Remove</button>
+                           
                     </div>
                     <div class="input-group mb-2">
                         <input type="text" class="form-control" name="nav_items[3][name]" placeholder="Name"   >
                         <input type="url" class="form-control" name="nav_items[3][link]" placeholder="Link"   >
-                        <button type="button" class="btn btn-danger remove-nav-item">Remove</button>
+                           
                     </div>
                 </div>
             </div>
@@ -48,8 +48,8 @@
 
         <!-- Home Banner Section -->
         <div class="card mb-4">
-            <div class="card-header">
-                <h5 class="card-title">Home Banner</h5>
+            <div class="card-header bg-info">
+                <h5 class="card-title text-white font-weight-bold">Home Banner</h5>
             </div>
             <div class="card-body">
                 <div class="mb-3">
@@ -60,7 +60,6 @@
                 <div class="mb-3">
                     <label for="banner_image" class="form-label">Banner Image</label>
                     <input type="file" class="form-control" id="banner_image" name="banner_image">
-                    <img src="" alt="Banner Image" class="img-thumbnail mt-2" width="200">
                 </div>
 
                 <div class="mb-3">
@@ -72,8 +71,8 @@
 
         <!-- About Section -->
         <div class="card mb-4">
-            <div class="card-header">
-                <h5 class="card-title">About Us</h5>
+            <div class="card-header bg-info">
+                <h5 class="card-title text-white font-weight-bold">About Us Section</h5>
             </div>
             <div class="card-body">
                 <div class="mb-3">
@@ -84,15 +83,14 @@
                 <div class="mb-3">
                     <label for="about_image_1" class="form-label">About Image</label>
                     <input type="file" class="form-control" id="about_image_1" name="about_image_1">
-                    <img src="" alt="About Image 1" class="img-thumbnail mt-2" width="200">
                 </div>
             </div>
         </div>
 
         <!-- Social Links Section -->
         <div class="card mb-4">
-            <div class="card-header">
-                <h5 class="card-title">Social Links</h5>
+            <div class="card-header bg-info">
+                <h5 class="card-title text-white font-weight-bold">Social Links</h5>
             </div>
             <div class="card-body">
                 <div class="mb-3">
@@ -116,8 +114,8 @@
 
         <!-- Footer Section -->
         <div class="card mb-4">
-            <div class="card-header">
-                <h5 class="card-title">Footer</h5>
+            <div class="card-header bg-info">
+                <h5 class="card-title text-white font-weight-bold">Footer</h5>
             </div>
             <div class="card-body">
                 <div class="mb-3">

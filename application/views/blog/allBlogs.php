@@ -15,9 +15,14 @@
             <?php foreach($blog as $value): ?>
                 <!-- Blog Post Start -->
                 <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="card shadow">
+                    <div class="card shadow h-100"> <!-- Added 'h-100' class for equal height -->
                         <!-- Blog Image -->
-                        <!-- <img src="<?php // echo $value->blogImage ?>" class="card-img-top" alt="Blog Image"> -->
+                        <?php if (!empty($value->blogImage)): ?>
+                            <img src="<?php echo base_url('uploads/' . $value->blogImage); ?>" class="card-img-top" alt="Blog Image">
+                        <?php else: ?>
+                            <!-- Placeholder image or default image -->
+                            <img src="<?php echo base_url('assets/images/default-blog-image.jpg'); ?>" class="card-img-top" alt="Default Blog Image">
+                        <?php endif; ?>
 
                         <div class="card-body">
                             <h5 class="card-title" style="color: #0a58ca; font-size: 1.3rem; font-weight: bold;">
@@ -32,38 +37,12 @@
                                 echo $excerpt;
                                 ?>
                             </p>
-                            <!-- Button trigger modal -->
-                            <button type="button" class="btn read-more-btn font-weight-bold text-info" data-toggle="modal" data-target="#blogModal_<?php echo $value->blogId; ?>">Read More</button>
-                            <!-- <p class="card-text" style="font-size: 0.9rem; color: #0a58ca;">
-                                Posted on: <?php //echo $value->blogDate; ?>
-                                <br>Posted by: <?php //echo $value->userName; ?>
-                            </p> -->
+                            <!-- Button to Full Blog Page -->
+                            <a href="<?= base_url('home/fullBlog/' . $value->blogId); ?>" class="btn read-more-btn font-weight-bold text-info">Read More</a>
                         </div>
                     </div>
                 </div>
                 <!-- End Blog Post -->
-
-                <!-- Modal for each blog -->
-                <div class="modal fade" id="blogModal_<?php echo $value->blogId; ?>" tabindex="-1" role="dialog" aria-labelledby="blogModalLabel_<?php echo $value->blogId; ?>" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="blogModalLabel_<?php echo $value->blogId; ?>"><?php echo $value->blogTitle; ?></h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <p><strong>Description:</strong> <?php echo $value->blogBody; ?></p>
-                                <p><strong>Author:</strong> <?php echo $value->userName; ?></p>
-                                <p><strong>Published at:</strong> <?php echo date('M d, Y', strtotime($value->blogDate)); ?></p>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             <?php endforeach; ?>
         </div>
     <?php else: ?>
@@ -71,6 +50,13 @@
     <?php endif; ?>
 </div>
 <!-- End All Blogs Section -->
+
+<!-- Load necessary CSS and JS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 <style>
     body {
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -99,31 +85,5 @@
 
     .read-more-btn {
         margin-top: 10px;
-    }
-
-    /* Modal Style */
-    .modal-content {
-        background-color: #fff;
-        box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
-    }
-
-    .modal-header {
-        background-color: #0a58ca;
-        color: #fff;
-        border-bottom: none;
-    }
-
-    .modal-title {
-        font-size: 1.5rem;
-        font-weight: bold;
-        color: #ffff;
-    }
-
-    .modal-body {
-        color: #333;
-    }
-
-    .modal-footer {
-        border-top: none;
     }
 </style>

@@ -21,7 +21,7 @@
         <div class="col-lg-12">
             <div class="card shadow mb-4">
                 <div class="card-body">
-                    <form action="<?php echo base_url('BlogAdmin/editBlog'); ?>" method="POST">
+                    <form action="<?php echo base_url('BlogAdmin/editBlog'); ?>" method="POST" enctype="multipart/form-data">
                         <input type="hidden" name="blogId" value="<?= $blog->blogId ?>">
                         <div class="mb-3">
                             <label for="blogTitle" class="form-label">Blog Title</label>
@@ -30,6 +30,10 @@
                         <div class="mb-3">
                             <label for="blogBody" class="form-label">Blog Description/Body</label>
                             <textarea class="form-control" id="blogBody" name="blogBody" rows="8" placeholder="Enter blog description/body" required><?= $blog->blogBody ?></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="blogImage" class="form-label">Blog Image</label>
+                            <input type="file" class="form-control" id="blogImage" name="blogImage">
                         </div>
                         <div class="text-end">
                             <button type="submit" class="btn btn-primary">Update</button>

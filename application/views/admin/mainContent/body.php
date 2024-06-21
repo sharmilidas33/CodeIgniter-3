@@ -73,6 +73,9 @@
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
+                                                    <?php if (!empty($blog->blogImage)) : ?>
+                                                        <img src="<?php echo base_url('uploads/' . $blog->blogImage); ?>" class="img-fluid mb-2" alt="Blog Image">
+                                                    <?php endif; ?>
                                                     <p><strong>Description:</strong> <?php echo $blog->blogBody; ?></p>
                                                     <p><strong>Author:</strong> <?php echo $blog->userName; ?></p>
                                                     <p><strong>Published at:</strong> <?php echo date('M d, Y', strtotime($blog->blogDate)); ?></p>

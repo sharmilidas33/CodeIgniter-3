@@ -37,7 +37,7 @@ class ModAdmin extends CI_Model{
 
     public function addBlog($data) {
         return $this->db->insert('blog', $data);
-    }
+    }    
 
     public function updateTheBlog($blogId, $data) {
         $this->db->where('blogId', $blogId);
@@ -75,5 +75,17 @@ class ModAdmin extends CI_Model{
         return $this->db->insert_id(); // Return the ID of the inserted row if needed
     }
     
-
+    public function getContentByUserId($userId) {
+        $this->db->select('content');
+        $this->db->where('userId', $userId);
+        $query = $this->db->get('appearance');
+    
+        if ($query->num_rows() > 0) {
+            // Fetch the first row (assuming there is only one row for each userId)
+            $row = $query->row();
+            return json_decode($row->content, true); // Decode JSON into associative array
+        }
+    
+        return null; // Return null if no data found
+    }
 }

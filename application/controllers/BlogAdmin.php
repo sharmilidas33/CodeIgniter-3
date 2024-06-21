@@ -59,10 +59,11 @@ class BlogAdmin extends CI_Controller{
     
     public function addNewBlog() {
         $this->load->library('form_validation');
-
+        $this->load->library('upload');
+    
         $this->form_validation->set_rules('blogTitle', 'Blog Title', 'trim|required');
         $this->form_validation->set_rules('blogBody', 'Blog Body', 'trim|required');
-
+    
         if ($this->form_validation->run() == FALSE) {
             $this->load->view('admin/header/header');
             $this->load->view('admin/header/css');
@@ -78,7 +79,21 @@ class BlogAdmin extends CI_Controller{
             $data['blogDate'] = date('Y-m-d');
             $data['userId'] = $this->session->userdata('uId');
             $data['blogStatus'] = 1;
-            
+    
+            // File upload configurations
+            $config['upload_path'] = './uploads/'; // Specify your upload directory
+            $config['allowed_types'] = 'gif|jpg|png|jpeg'; // Allowed file types
+            $config['max_size'] = 2048; // Maximum file size in KB
+            $config['encrypt_name'] = TRUE; // Encrypt the file name
+            $this->upload->initialize($config);
+    
+            // Upload Blog Image
+            if ($this->upload->do_upload('blogImage')) {
+                $data['blogImage'] = $this->upload->data('file_name');
+            } else {
+                $data['blogImage'] = ''; 
+            }
+    
             $checkBlog = $this->modAdmin->checkBlog($data);
             if ($checkBlog->num_rows() > 0) {
                 $this->session->set_flashdata('message', 'Your blog already exists!');
@@ -94,12 +109,13 @@ class BlogAdmin extends CI_Controller{
                 }
             }
         }
-    }
+    }    
 
     public function editBlog($blogId = NULL) {
         if ($this->input->post()) {
             $this->load->library('form_validation');
-            
+            $this->load->library('upload');
+    
             $this->form_validation->set_rules('blogTitle', 'Blog Title', 'trim|required');
             $this->form_validation->set_rules('blogBody', 'Blog Body', 'trim|required');
     
@@ -117,6 +133,25 @@ class BlogAdmin extends CI_Controller{
                 $data['blogBody'] = $this->input->post('blogBody', TRUE);
                 $blogId = $this->input->post('blogId');
     
+                // Check if a new image was uploaded
+                if (!empty($_FILES['blogImage']['name'])) {
+                    // File upload configurations
+                    $config['upload_path'] = './uploads/'; // Specify your upload directory
+                    $config['allowed_types'] = 'gif|jpg|png'; // Allowed file types
+                    $config['max_size'] = 2048; // Maximum file size in KB
+                    $config['encrypt_name'] = TRUE; // Encrypt the file name
+                    $this->upload->initialize($config);
+    
+                    // Upload Blog Image
+                    if ($this->upload->do_upload('blogImage')) {
+                        $data['blogImage'] = $this->upload->data('file_name');
+                    } else {
+                        $this->session->set_flashdata('message', $this->upload->display_errors());
+                        redirect('BlogAdmin/editBlog/'.$blogId);
+                    }
+                }
+    
+                // Update the blog record
                 $this->modAdmin->updateTheBlog($blogId, $data);
                 $this->session->set_flashdata('message', 'Blog updated successfully.');
                 redirect('BlogAdmin/viewBlogs');
@@ -143,7 +178,8 @@ class BlogAdmin extends CI_Controller{
                 redirect('BlogAdmin/viewBlogs');
             }
         }
-    }    
+    }
+       
 
 
     public function deleteBlog($blogId) {

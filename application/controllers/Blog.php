@@ -3,13 +3,20 @@
 class Blog extends CI_Controller {
 
     public function index() {
+        $userId = $this->session->userdata('uId'); // Replace with your actual session variable name
+
+        // Fetch content from the model
+        $content = $this->modAdmin->getContentByUserId($userId);
+
+        // Prepare data to pass to view
+        $data['content'] = $content;
         $data['blog'] = $this->modBlog->getAllBlogs();
     
         $this->load->view('header/header');
         $this->load->view('header/css');
-        $this->load->view('header/navigation');
+        $this->load->view('header/navigation',$data);
         $this->load->view('blog/allBlogs', $data); 
-        $this->load->view('footer/footer');
+        $this->load->view('footer/footer',$data);
         $this->load->view('footer/js');
         $this->load->view('footer/endhtml');
     }

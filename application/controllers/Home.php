@@ -186,25 +186,73 @@ class Home extends CI_Controller
         // $data= $this->modHome->myReturnId($arrayData);
         // $data= $this->modHome->myLastQuery();
         // var_dump($data);
-        
-            $this->load->view('header/header');
-            $this->load->view('header/css');
-            $this->load->view('header/navigation');
-            $this->load->view('content/home');
-            $this->load->view('footer/footer');
-            $this->load->view('footer/js');
-            $this->load->view('footer/endhtml');
-    }
 
-    public function about(){
+        $userId = $this->session->userdata('uId'); 
+
+        // Fetch content from the model
+        $content = $this->modAdmin->getContentByUserId($userId);
+
+        // Fetch latest blogs from the model
+        $latestBlogs = $this->modAdmin->fetchLatestBlogs(4);
+
+        // Prepare data to pass to view
+        $data['content'] = $content; // Assuming $content is an associative array
+        $data['latestBlogs'] = $latestBlogs; // Assuming $latestBlogs is an array of blog objects
+
+        // Load views
         $this->load->view('header/header');
         $this->load->view('header/css');
-        $this->load->view('header/navigation');
-        $this->load->view('content/about');
-        $this->load->view('footer/footer');
+        $this->load->view('header/navigation', $data); // Pass $data to navigation view
+        $this->load->view('content/home', $data);
+        $this->load->view('footer/footer', $data);
         $this->load->view('footer/js');
         $this->load->view('footer/endhtml');
     }
+
+    public function about() {
+        $userId = $this->session->userdata('uId'); 
+    
+        // Fetch content from the model
+        $content = $this->modAdmin->getContentByUserId($userId);
+        $latestBlogs = $this->modAdmin->fetchLatestBlogs(1); // Fetching 1 latest blog for the about section
+    
+        // Prepare data to pass to view
+        $data['content'] = $content;
+        $data['latestBlogs'] = $latestBlogs;
+    
+        // Load views
+        $this->load->view('header/header', $data);
+        $this->load->view('header/css');
+        $this->load->view('header/navigation');
+        $this->load->view('content/about', $data); // Pass $data to about view
+        $this->load->view('footer/footer', $data);
+        $this->load->view('footer/js');
+        $this->load->view('footer/endhtml');
+    }
+
+    public function fullBlog($blogId) {
+        $userId = $this->session->userdata('uId'); // Replace with your actual session variable name
+
+        // Fetch content from the model
+        $content = $this->modAdmin->getContentByUserId($userId);
+
+        // Fetch full blog details from the model
+        $blog = $this->modBlog->getBlogById($blogId); // Call the correct method
+
+        // Prepare data to pass to view
+        $data['content'] = $content;
+        $data['blog'] = $blog;
+
+        // Load views
+        $this->load->view('header/header', $data);
+        $this->load->view('header/css');
+        $this->load->view('header/navigation');
+        $this->load->view('blog/fullBlog', $data); // Pass $data to fullBlog view
+        $this->load->view('footer/footer', $data);
+        $this->load->view('footer/js');
+        $this->load->view('footer/endhtml');
+    }
+    
 
     // public function contactus(){
     //     $this->load->view('header/header');
@@ -217,20 +265,6 @@ class Home extends CI_Controller
     // }
 
 
-    public function myfile(){
-        //Associative Array
-        $config['upload_path']='./assets/captcha/';
-        $config['allowed_types']='gif|pdf|png|jpg|jpeg';
-        $config['max_size']=1000;
-
-        $this->load->library('upload',$config);
-        if(!$this->upload->do_upload('myimg')){
-            echo 'not uploaded';
-        }
-        else{
-            echo "uploaded";
-        }
-    }
 
     //for session
     public function mysession(){
