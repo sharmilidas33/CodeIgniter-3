@@ -61,7 +61,7 @@ class Blog extends CI_Controller {
         $this->load->view('footer/footer', $data);
         $this->load->view('footer/js');
         $this->load->view('footer/endhtml');
-    }
+    }    
         
     
 

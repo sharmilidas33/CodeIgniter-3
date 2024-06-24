@@ -1,4 +1,3 @@
-<!-- All Blogs Section -->
 <div class="container py-2">
     <h1 class="text-center mb-5" style="color: #0a58ca; font-size: 1.8rem; font-weight: bold;">All Blogs</h1>
     
@@ -12,33 +11,41 @@
 
     <?php if(!empty($blog)): ?>
         <div class="row">
+            <?php
+            // Function to safely truncate text
+            if (!function_exists('truncate_text')) {
+                function truncate_text($text, $limit) {
+                    $text = strip_tags($text);
+                    $words = explode(' ', $text);
+                    if (count($words) > $limit) {
+                        return implode(' ', array_slice($words, 0, $limit)) . '...';
+                    }
+                    return $text;
+                }
+            }
+            ?>
+
             <?php foreach($blog as $value): ?>
                 <!-- Blog Post Start -->
                 <div class="col-lg-4 col-md-6 mb-4">
                     <div class="card shadow h-100"> <!-- Added 'h-100' class for equal height -->
                         <!-- Blog Image -->
                         <?php if (!empty($value->blogImage)): ?>
-                            <img src="<?= base_url('uploads/' . $value->blogImage); ?>" class="card-img-top" alt="Blog Image">
+                            <img src="<?php echo base_url('uploads/' . $value->blogImage); ?>" class="card-img-top" alt="Blog Image">
                         <?php else: ?>
                             <!-- Placeholder image or default image -->
-                            <img src="<?= base_url('assets/images/default-blog-image.jpg'); ?>" class="card-img-top" alt="Default Blog Image">
+                            <img src="<?php echo base_url('assets/images/default-blog-image.jpg'); ?>" class="card-img-top" alt="Default Blog Image">
                         <?php endif; ?>
 
-                        <div class="card-body">
+                        <div class="card-body d-flex flex-column">
                             <h5 class="card-title" style="color: #0a58ca; font-size: 1.3rem; font-weight: bold;">
-                                <?= $value->blogTitle; ?>
+                                <?php echo htmlspecialchars($value->blogTitle); ?>
                             </h5>
                             <p class="card-text">
-                                <?php
-                                $body = $value->blogBody;
-                                // Truncate the body to 20-30 words
-                                $words = explode(' ', $body);
-                                $excerpt = implode(' ', array_slice($words, 0, 20)) . '...';
-                                echo $excerpt;
-                                ?>
+                                <?php echo truncate_text($value->blogBody, 20); ?>
                             </p>
                             <!-- Button to Full Blog Page -->
-                            <a href="<?= base_url('home/fullBlog/' . $value->blogId); ?>" class="btn read-more-btn font-weight-bold text-info">Read More</a>
+                            <a href="<?= base_url('home/fullBlog/' . $value->blogId); ?>" class="btn btn-info mt-auto">Read More</a>
                         </div>
                     </div>
                 </div>

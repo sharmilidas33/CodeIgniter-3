@@ -324,7 +324,7 @@ class Home extends CI_Controller
         // Load views
         $this->load->view('header/header', $data);
         $this->load->view('header/css');
-        $this->load->view('header/navigation');
+        $this->load->view('header/navigation',$data);
         $this->load->view('content/about', $data); // Pass $data to about view
         $this->load->view('footer/footer', $data);
         $this->load->view('footer/js');
@@ -335,26 +335,63 @@ class Home extends CI_Controller
 
     public function fullBlog($blogId) {
         $userId = $this->session->userdata('uId'); // Replace with your actual session variable name
-
-        // Fetch content from the model
-        $content = $this->modAdmin->getContentByUserId($userId);
-
+    
+        // Initialize content and latestBlogs
+        $content = [];
+        $latestBlogs = [];
+        $isLoggedIn = false;
+    
+        if ($userId) {
+            // User is logged in, check if their ID is in the appearance table
+            $userAppearance = $this->modAdmin->getUserAppearance($userId);
+    
+            if ($userAppearance) {
+                // User's appearance data exists, fetch personalized content
+                $content = $this->modAdmin->getContentByUserId($userId);
+                $isLoggedIn = true;
+            } else {
+                // User's appearance data does not exist, fetch default content
+                $content = [
+                    'logo_name' => 'BlogSpot',
+                    'nav_items' => json_encode([
+                        ['name' => 'Home', 'link' => base_url('Home')],
+                        ['name' => 'About', 'link' => base_url('Home/about')],
+                        ['name' => 'Blog', 'link' => base_url('/blog')],
+                        ['name' => 'SignUp', 'link' => base_url('signup')],
+                    ]),
+                ];
+            }
+        } else {
+            // User is not logged in, fetch default content
+            $content = [
+                'logo_name' => 'BlogSpot',
+                'nav_items' => json_encode([
+                    ['name' => 'Home', 'link' => base_url('Home')],
+                    ['name' => 'About', 'link' => base_url('Home/about')],
+                    ['name' => 'Blog', 'link' => base_url('/blog')],
+                    ['name' => 'SignUp', 'link' => base_url('signup')],
+                ]),
+            ];
+        }
+    
         // Fetch full blog details from the model
-        $blog = $this->modBlog->getBlogById($blogId); // Call the correct method
-
+        $blog = $this->modBlog->getBlogById($blogId);
+    
         // Prepare data to pass to view
         $data['content'] = $content;
         $data['blog'] = $blog;
-
+        $data['isLoggedIn'] = $isLoggedIn;
+    
         // Load views
         $this->load->view('header/header', $data);
         $this->load->view('header/css');
-        $this->load->view('header/navigation');
-        $this->load->view('blog/fullBlog', $data); // Pass $data to fullBlog view
+        $this->load->view('header/navigation', $data);
+        $this->load->view('blog/fullBlog', $data);
         $this->load->view('footer/footer', $data);
         $this->load->view('footer/js');
         $this->load->view('footer/endhtml');
     }
+       
     
 
     // public function contactus(){
