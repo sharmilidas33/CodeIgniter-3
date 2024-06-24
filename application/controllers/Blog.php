@@ -4,18 +4,35 @@ class Blog extends CI_Controller {
 
     public function index() {
         // Check if user is logged in
-        $userId = $this->session->userdata('uId'); 
+        $userId = $this->session->userdata('uId');
     
         // Initialize content and latestBlogs
         $content = [];
         $latestBlogs = [];
         $isLoggedIn = false;
-
+    
+        // Fetch content based on user login status
         if ($userId) {
-            $content = $this->modAdmin->getAllBlogs();
-            $isLoggedIn = true;
-        }
-        else {
+            // User is logged in, check if their ID is in the appearance table
+            $userAppearance = $this->modAdmin->getUserAppearance($userId);
+    
+            if ($userAppearance) {
+                // User's appearance data exists, fetch personalized content
+                $content = $this->modAdmin->getContentByUserId($userId);
+                $isLoggedIn = true;
+            } else {
+                // User's appearance data does not exist, fetch default content
+                $content = [
+                    'logo_name' => 'BlogSpot',
+                    'nav_items' => json_encode([
+                        ['name' => 'Home', 'link' => base_url('Home')],
+                        ['name' => 'About', 'link' => base_url('Home/about')],
+                        ['name' => 'Blog', 'link' => base_url('/blog')],
+                        ['name' => 'SignUp', 'link' => base_url('signup')],
+                    ]),
+                ];
+            }
+        } else {
             // User is not logged in, fetch default content
             $content = [
                 'logo_name' => 'BlogSpot',
@@ -25,23 +42,27 @@ class Blog extends CI_Controller {
                     ['name' => 'Blog', 'link' => base_url('/blog')],
                     ['name' => 'SignUp', 'link' => base_url('signup')],
                 ]),
-                'about_image' => '',
-                'about_us' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus soluta repudiandae voluptates rerum deleniti dolore blanditiis iure ipsum, amet atque. Consequuntur possimus esse exercitationem perspiciatis optio! Nihil enim illo neque!'
             ];
         }
-
+    
+        // Fetch latest blogs using modBlog->getAllBlogs()
+        $latestBlogs = $this->modBlog->getAllBlogs();
+    
         // Prepare data to pass to view
         $data['content'] = $content;
-        $data['blog'] = $this->modBlog->getAllBlogs();
+        $data['blog'] = $latestBlogs; // Use 'blog' key to pass blogs to the view
+        $data['isLoggedIn'] = $isLoggedIn;
     
+        // Load views
         $this->load->view('header/header');
         $this->load->view('header/css');
-        $this->load->view('header/navigation',$data);
-        $this->load->view('blog/allBlogs', $data); 
-        $this->load->view('footer/footer',$data);
+        $this->load->view('header/navigation', $data); // Pass $data to navigation view
+        $this->load->view('blog/allBlogs', $data); // Load allBlogs view with $data
+        $this->load->view('footer/footer', $data);
         $this->load->view('footer/js');
         $this->load->view('footer/endhtml');
     }
+        
     
 
     // public function newBlog() {

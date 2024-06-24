@@ -1,21 +1,20 @@
 <!-- banner section start --> 
 <div class="container-fluid">
    <div class="banner_section layout_padding">
-      <h1 class="banner_taital"><?= $content['banner_line']?></h1>
+      <h1 class="banner_taital"><?= isset($content['banner_line']) ? $content['banner_line'] : 'Default Banner Line' ?></h1>
       <div class="image_main">
          <div class="container">
-         <?php if ($isLoggedIn): ?>
-            <img src="<?= base_url('uploads/' . $content['banner_image']) ?>" class="image_1">
-         <?php else: ?>
-            <img src="<?= base_url('assets/images/img-8.png') ?>" class="image_1">
-         <?php endif; ?>
-            <div class="contact_bt"><a href="<?php base_url('blog')?>"><?= $content['banner_button_name']?></a></div>
+            <?php if ($isLoggedIn): ?>
+               <img src="<?= base_url('uploads/' . $content['banner_image']) ?>" class="image_1">
+            <?php else: ?>
+               <img src="<?= base_url('assets/images/img-8.png') ?>" class="image_1">
+            <?php endif; ?>
+            <div class="contact_bt"><a href="<?= base_url('blog') ?>"><?= isset($content['banner_button_name']) ? $content['banner_button_name'] : 'Learn More' ?></a></div>
          </div>
       </div>
    </div>
 </div>
 <!-- banner section end -->
-
 
 <!-- blog section start -->
 <div class="about_section layout_padding">
@@ -30,10 +29,10 @@
                     <div class="social_icon_main">
                         <div class="social_icon">
                             <ul>
-                                <li><a href="<?= $content['facebook_link']?>"><img src="assets/images/fb-icon-1.png"></a></li>
-                                <li><a href="<?= $content['twitter_link']?>"><img src="assets/images/twitter-icon-1.png"></a></li>
-                                <li><a href="<?= $content['linkedin_link']?>"><img src="assets/images/linkedin-icon-1.png"></a></li>
-                                <li><a href="<?= $content['instagram_link']?>"><img src="assets/images/instagram-icon-1.png"></a></li>
+                                <li><a href="<?= isset($content['facebook_link']) ? $content['facebook_link'] : '#' ?>"><img src="assets/images/fb-icon-1.png"></a></li>
+                                <li><a href="<?= isset($content['twitter_link']) ? $content['twitter_link'] : '#' ?>"><img src="assets/images/twitter-icon-1.png"></a></li>
+                                <li><a href="<?= isset($content['linkedin_link']) ? $content['linkedin_link'] : '#' ?>"><img src="assets/images/linkedin-icon-1.png"></a></li>
+                                <li><a href="<?= isset($content['instagram_link']) ? $content['instagram_link'] : '#' ?>"><img src="assets/images/instagram-icon-1.png"></a></li>
                             </ul>
                         </div>
                         <div class="read_bt"><a href="<?= base_url('home/fullBlog/' . $blog->blogId); ?>">Read More</a></div>
@@ -44,8 +43,6 @@
     </div>
 </div>
 <!-- blog section end -->
-
-
 
 <!-- contact section start -->
 <div class="contact_section layout_padding" style="background-color: #4682b4;">
@@ -65,9 +62,3 @@
    </div>
 </div>
 <!-- contact section end -->
-
-<style>
-   .about_section {
-        padding-bottom: 50px; 
-    }
-</style>

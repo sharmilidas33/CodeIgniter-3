@@ -64,28 +64,29 @@
 
                                     <!-- Modal for each blog -->
                                     <div class="modal fade" id="blogModal_<?php echo $blog->blogId; ?>" tabindex="-1" role="dialog" aria-labelledby="blogModalLabel_<?php echo $blog->blogId; ?>" aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="blogModalLabel_<?php echo $blog->blogId; ?>"><?php echo $blog->blogTitle; ?></h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <?php if (!empty($blog->blogImage)) : ?>
-                                                        <img src="<?php echo base_url('uploads/' . $blog->blogImage); ?>" class="img-fluid mb-2" alt="Blog Image">
-                                                    <?php endif; ?>
-                                                    <p><strong>Description:</strong> <?php echo $blog->blogBody; ?></p>
-                                                    <p><strong>Author:</strong> <?php echo $blog->userName; ?></p>
-                                                    <p><strong>Published at:</strong> <?php echo date('M d, Y', strtotime($blog->blogDate)); ?></p>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                </div>
+                                    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header bg-primary text-white">
+                                                <h5 class="modal-title" id="blogModalLabelWide_<?php echo $blog->blogId; ?>"><?php echo $blog->blogTitle; ?></h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <?php if (!empty($blog->blogImage)) : ?>
+                                                    <img src="<?php echo base_url('uploads/' . $blog->blogImage); ?>" class="img-fluid mb-3" alt="Blog Image">
+                                                <?php endif; ?>
+                                                <p><?php echo $blog->blogBody; ?></p>
+                                                <p><strong>Author:</strong> <?php echo $blog->userName; ?></p>
+                                                <p><strong>Published at:</strong> <?php echo date('M d, Y', strtotime($blog->blogDate)); ?></p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                             </div>
                                         </div>
                                     </div>
+</div>
+
                                 <?php endforeach; ?>
                             </tbody>
                         </table>

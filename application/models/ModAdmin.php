@@ -88,4 +88,11 @@ class ModAdmin extends CI_Model{
     
         return null; // Return null if no data found
     }
+
+    public function getUserAppearance($userId) {
+        $this->db->where('userId', $userId);
+        $query = $this->db->get('appearance');
+
+        return $query->row(); // Return the row object, which will be null if no data found
+    }
 }

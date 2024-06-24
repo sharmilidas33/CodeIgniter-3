@@ -18,15 +18,15 @@
                     <div class="card shadow h-100"> <!-- Added 'h-100' class for equal height -->
                         <!-- Blog Image -->
                         <?php if (!empty($value->blogImage)): ?>
-                            <img src="<?php echo base_url('uploads/' . $value->blogImage); ?>" class="card-img-top" alt="Blog Image">
+                            <img src="<?= base_url('uploads/' . $value->blogImage); ?>" class="card-img-top" alt="Blog Image">
                         <?php else: ?>
                             <!-- Placeholder image or default image -->
-                            <img src="<?php echo base_url('assets/images/default-blog-image.jpg'); ?>" class="card-img-top" alt="Default Blog Image">
+                            <img src="<?= base_url('assets/images/default-blog-image.jpg'); ?>" class="card-img-top" alt="Default Blog Image">
                         <?php endif; ?>
 
                         <div class="card-body">
                             <h5 class="card-title" style="color: #0a58ca; font-size: 1.3rem; font-weight: bold;">
-                                <?php echo $value->blogTitle; ?>
+                                <?= $value->blogTitle; ?>
                             </h5>
                             <p class="card-text">
                                 <?php

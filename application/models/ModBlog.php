@@ -14,14 +14,13 @@ class modBlog extends CI_Model {
 
     public function getAllBlogs() {
         return $this->db
-            ->select('blog.*, user.fullname as userName')
+            ->select('*')
             ->from('blog')
-            ->where('blog.blogStatus', 1)
-            ->join('user', 'user.id = blog.userId')
+            ->where('blogStatus', 1) // Assuming 'blogStatus' is a column in the 'blog' table
             ->get()
             ->result();
-    }    
-
+    }
+    
 
     public function getBlogById($blogId) {
         return $this->db
