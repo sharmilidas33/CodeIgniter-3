@@ -3,10 +3,32 @@
 class Blog extends CI_Controller {
 
     public function index() {
-        $userId = $this->session->userdata('uId'); // Replace with your actual session variable name
+        // Check if user is logged in
+        $userId = $this->session->userdata('uId'); 
+    
+        // Initialize content and latestBlogs
+        $content = [];
+        $latestBlogs = [];
+        $isLoggedIn = false;
 
-        // Fetch content from the model
-        $content = $this->modAdmin->getContentByUserId($userId);
+        if ($userId) {
+            $content = $this->modAdmin->getAllBlogs();
+            $isLoggedIn = true;
+        }
+        else {
+            // User is not logged in, fetch default content
+            $content = [
+                'logo_name' => 'BlogSpot',
+                'nav_items' => json_encode([
+                    ['name' => 'Home', 'link' => base_url('Home')],
+                    ['name' => 'About', 'link' => base_url('Home/about')],
+                    ['name' => 'Blog', 'link' => base_url('/blog')],
+                    ['name' => 'SignUp', 'link' => base_url('signup')],
+                ]),
+                'about_image' => '',
+                'about_us' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus soluta repudiandae voluptates rerum deleniti dolore blanditiis iure ipsum, amet atque. Consequuntur possimus esse exercitationem perspiciatis optio! Nihil enim illo neque!'
+            ];
+        }
 
         // Prepare data to pass to view
         $data['content'] = $content;

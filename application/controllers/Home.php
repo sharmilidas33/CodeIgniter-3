@@ -187,17 +187,48 @@ class Home extends CI_Controller
         // $data= $this->modHome->myLastQuery();
         // var_dump($data);
 
-        $userId = $this->session->userdata('uId'); 
+        // Check if user is logged in
+        $userId = $this->session->userdata('uId');
 
-        // Fetch content from the model
-        $content = $this->modAdmin->getContentByUserId($userId);
+        // Initialize content and latestBlogs
+        $content = [];
+        $latestBlogs = [];
+        $isLoggedIn = false;
 
-        // Fetch latest blogs from the model
+        // Fetch content based on user login status
+        if ($userId) {
+            // User is logged in, fetch personalized content
+            $content = $this->modAdmin->getContentByUserId($userId);
+            $isLoggedIn = true;
+        } else {
+            // User is not logged in, fetch default content
+            $content = [
+                'logo_name' => 'BlogSpot',
+                'nav_items' => json_encode([
+                    ['name' => 'Home', 'link' => base_url('Home')],
+                    ['name' => 'About', 'link' => base_url('Home/about')],
+                    ['name' => 'Blog', 'link' => base_url('/blog')],
+                    ['name' => 'SignUp', 'link' => base_url('signup')],
+                ]),
+                'banner_line' => 'Welcome to Our Blog Site',
+                'banner_image' => '', 
+                'banner_button_name' => 'Learn More',
+                'facebook_link' => '#',
+                'twitter_link' => '#',
+                'linkedin_link' => '#',
+                'instagram_link' => '#',
+                'footer_email' => 'contact@example.com',
+                'footer_number' => '123-456-7890'
+            ];
+        }
+
+        // Fetch latest blogs
         $latestBlogs = $this->modAdmin->fetchLatestBlogs(4);
 
         // Prepare data to pass to view
-        $data['content'] = $content; // Assuming $content is an associative array
-        $data['latestBlogs'] = $latestBlogs; // Assuming $latestBlogs is an array of blog objects
+        $data['content'] = $content;
+        $data['latestBlogs'] = $latestBlogs;
+        $data['isLoggedIn'] = $isLoggedIn;
 
         // Load views
         $this->load->view('header/header');
@@ -210,15 +241,40 @@ class Home extends CI_Controller
     }
 
     public function about() {
+        // Check if user is logged in
         $userId = $this->session->userdata('uId'); 
     
-        // Fetch content from the model
-        $content = $this->modAdmin->getContentByUserId($userId);
+        // Initialize content and latestBlogs
+        $content = [];
+        $latestBlogs = [];
+        $isLoggedIn = false;
+    
+        // Fetch content based on user login status
+        if ($userId) {
+            // User is logged in, fetch personalized content
+            $content = $this->modAdmin->getContentByUserId($userId);
+            $isLoggedIn = true;
+        } else {
+            // User is not logged in, fetch default content
+            $content = [
+                'logo_name' => 'BlogSpot',
+                'nav_items' => json_encode([
+                    ['name' => 'Home', 'link' => base_url('Home')],
+                    ['name' => 'About', 'link' => base_url('Home/about')],
+                    ['name' => 'Blog', 'link' => base_url('/blog')],
+                    ['name' => 'SignUp', 'link' => base_url('signup')],
+                ]),
+                'about_image' => '',
+                'about_us' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus soluta repudiandae voluptates rerum deleniti dolore blanditiis iure ipsum, amet atque. Consequuntur possimus esse exercitationem perspiciatis optio! Nihil enim illo neque!'
+            ];
+        }
+        // Fetch latest blog
         $latestBlogs = $this->modAdmin->fetchLatestBlogs(1); // Fetching 1 latest blog for the about section
     
         // Prepare data to pass to view
         $data['content'] = $content;
         $data['latestBlogs'] = $latestBlogs;
+        $data['isLoggedIn'] = $isLoggedIn;
     
         // Load views
         $this->load->view('header/header', $data);
@@ -229,6 +285,7 @@ class Home extends CI_Controller
         $this->load->view('footer/js');
         $this->load->view('footer/endhtml');
     }
+    
 
     public function fullBlog($blogId) {
         $userId = $this->session->userdata('uId'); // Replace with your actual session variable name

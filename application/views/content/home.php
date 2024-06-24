@@ -4,7 +4,11 @@
       <h1 class="banner_taital"><?= $content['banner_line']?></h1>
       <div class="image_main">
          <div class="container">
+         <?php if ($isLoggedIn): ?>
             <img src="<?= base_url('uploads/' . $content['banner_image']) ?>" class="image_1">
+         <?php else: ?>
+            <img src="<?= base_url('assets/images/img-8.png') ?>" class="image_1">
+         <?php endif; ?>
             <div class="contact_bt"><a href="<?php base_url('blog')?>"><?= $content['banner_button_name']?></a></div>
          </div>
       </div>
@@ -20,7 +24,7 @@
             <?php foreach ($latestBlogs as $blog): ?>
                 <div class="col-lg-6 col-sm-12 mb-4 mt-4">
                     <div class="about_img"><img src="<?= base_url('uploads/' . $blog->blogImage); ?>"></div>
-                    <p class="post_text">Posted On: <?= date('m/d/Y', strtotime($blog->blogDate)); ?></p>
+                    <p class="post_text mt-4">Posted On: <?= date('m/d/Y', strtotime($blog->blogDate)); ?></p>
                     <h2 class="most_text"><?= $blog->blogTitle; ?></h2>
                     <p class="lorem_text"><?= substr($blog->blogBody, 0, 150) . '...'; ?></p>
                     <div class="social_icon_main">

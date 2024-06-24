@@ -22,7 +22,11 @@
                 <?php endif; ?>
             </div>
             <div class="col-lg-4 col-sm-12">
-                <div class="image_5"><img src="<?= base_url('uploads/' . $content['about_image']) ?>"></div>
+                <?php if ($isLoggedIn): ?>
+                    <div class="image_5"><img src="<?= base_url('uploads/' . $content['about_image']) ?>"></div>
+                <?php else: ?>
+                    <div class="image_5"><img src="<?= base_url('assets/images/img-9.png') ?>"></div>
+                <?php endif; ?>
                 <h1 class="about_taital">About Us</h1>
                 <p class="about_text"><?= $content['about_us']?></p>
             </div>
